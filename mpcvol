@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mpc volume "$1"
+
+notify-send.sh --replace-file=/tmp/mwmpcvol.nsid \
+  "mpc volume changed" \
+  "$(mpc)"
+
+

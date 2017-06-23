@@ -1,0 +1,24 @@
+#!/bin/bash
+
+cd /sys/class/backlight/intel_backlight
+
+bl=$((`cat brightness` >> 4))
+if [ "x$1" = "x+" ]; then
+let "bl <<= 1"
+sudo sh -c "echo $(($bl << 4)) > brightness"
+
+elif [ "x$1" = "x-" ]; then
+let "bl >>= 1"
+if [ $bl -ge 1 ]; then
+sudo sh -c "echo $(($bl << 4)) > brightness"
+fi
+
+elif [ -z "$1" ]; then
+cat brightness
+else
+
+sudo sh -c "echo $1 > brightness"
+fi
+
+
+

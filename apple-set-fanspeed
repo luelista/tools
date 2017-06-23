@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd /sys/devices/platform/applesmc.768
+if [ -z "$1" ]; then
+cat fan1_output
+else
+
+sudo sh -c "echo $1 > fan1_output"
+fi
+
+
+
