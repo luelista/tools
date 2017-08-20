@@ -6,12 +6,17 @@
 #include <linux/termios.h>
 #include <unistd.h>
 
-#define DEFAULT_DEVICE "/dev/nodemcu"
+#define DEFAULT_DEVICE "/dev/ttyUSB0"
+#define DEFAULT_BAUD 76800
+
+
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
 
 int ioctl(int d, int request, ...);
 
 void usage(char* name) {
-	fprintf(stderr, "Usage: %s [-a] [-x] [-X] [-d " DEFAULT_DEVICE "] [-b 76800]\n", name);
+	fprintf(stderr, "Usage: %s [-a] [-x] [-X] [-d " DEFAULT_DEVICE "] [-b " STR(DEFAULT_BAUD) "]\n", name);
 }
 
 const char indicator_chars[] = {'\\', '|', '/', '-'};
@@ -25,7 +30,7 @@ int main(int argc, char *argv[]) {
 	struct termios2 t;
 	
 	char *deviceFile = DEFAULT_DEVICE;
-	int baud = 76800;
+	int baud = DEFAULT_BAUD;
 	int argsOk = 0;
 
 	int fd;
